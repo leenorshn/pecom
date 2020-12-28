@@ -13,9 +13,7 @@
         </v-card>
         <v-row class="pt-6">
             <v-col md="4" v-for="(n,i) in 10" :key="i">
-                
                 <ClientTile />
-    
             </v-col>
             
         </v-row>

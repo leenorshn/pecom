@@ -1,5 +1,12 @@
 <template>
   <v-app>
+    <v-app-bar
+    app
+    flat
+    color="black">
+      <v-spacer></v-spacer>
+      <v-btn class="white--text px-12" v-for="(m,i) in menu" :key="i" text router :to="m.route">{{m.name}}</v-btn>
+    </v-app-bar>
     <v-main>
       <router-view/>
     </v-main>
@@ -16,18 +23,28 @@ export default {
    
   },
   methods:{
-    ...mapActions(['getProducts','getClients']),
+    ...mapActions(['getProduts','getClients']),
 
   },
   beforeMount(){
     this.getClients();
-    this.getProducts();
+    this.getProduts();
   }
   ,
   
 
   data: () => ({
-    //
+   menu:[{
+     route:"/",
+     name:"Home"
+   },
+   {
+     route:"/Client",
+     name:"Client"
+   }
+   ]
+     
+   
   }),
 };
 </script>
