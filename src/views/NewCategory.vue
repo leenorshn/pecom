@@ -25,7 +25,7 @@
                 md="12"
               >
                 <v-text-field
-                  label="Legal first name*"
+                  label="Entrer une categorie"
                   required
                   outlined
                   v-model="category"
@@ -60,12 +60,11 @@
 <script>
 import { mapActions } from "vuex";
 export default {
-    props:{
-        dialog:Boolean
-    },
+    
     data(){
         return{
-            category:""
+            category:"",
+            dialog:false
         }
     },
     methods:{

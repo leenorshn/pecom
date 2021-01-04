@@ -93,10 +93,11 @@ export default new Vuex.Store({
     },
     addCategory({commit},category){
       db.collection("categories").add({category:category,date:Date.now()});
+      console.log(category);
       commit("ADD_CATEGORY");
     },
     getCategory({commit}){
-      db.collection("categories").onSnapshot(snap=>{
+      db.collection("categories").orderBy("date","desc").onSnapshot(snap=>{
         let categ=[]
         snap.docs.forEach(doc=>{
           let cat=doc.data();
