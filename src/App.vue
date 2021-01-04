@@ -5,8 +5,25 @@
     flat
     color="black">
       <v-spacer></v-spacer>
-      <v-btn class="white--text px-12" v-for="(m,i) in menu" :key="i" text router :to="m.route">{{m.name}}</v-btn>
+     
     </v-app-bar>
+    <v-navigation-drawer
+      app
+      permante
+      color="grey lighten-4"
+      >
+      <v-card height="15vh" class="mb-16 grey lighten-4" flat>
+
+      </v-card>
+      <v-card
+        height="10vh"
+        class="white--text px-12 ma-2 d-flex justify-center align-center" 
+        v-for="(m,i) in menu" :key="i" 
+        router :to="m.route"
+        >
+        <h2 class="black--text subtitle-2">{{m.label}}</h2> 
+      </v-card>
+    </v-navigation-drawer>
     <v-main>
       <router-view/>
     </v-main>
@@ -23,12 +40,13 @@ export default {
    
   },
   methods:{
-    ...mapActions(['getProduts','getClients']),
+    ...mapActions(['getProduts','getClients',"getCategory"]),
 
   },
   beforeMount(){
     this.getClients();
     this.getProduts();
+    this.getCategory();
   }
   ,
   
@@ -36,11 +54,11 @@ export default {
   data: () => ({
    menu:[{
      route:"/",
-     name:"Home"
+     label:"Home"
    },
    {
      route:"/Client",
-     name:"Client"
+     label:"Client"
    }
    ]
      

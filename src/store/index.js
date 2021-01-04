@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {clientsCollection,productsCollection} from "./fireApi";
+import {clientsCollection,db,productsCollection} from "./fireApi";
 
 Vue.use(Vuex)
 
@@ -10,7 +10,13 @@ export default new Vuex.Store({
     
     ],
     clients:[],
-    currentClient:null
+    currentClient:null,
+    categories:[]
+  },
+  getters:{
+    getCategorie(state){
+      return state.categories;
+    }
   },
   mutations: {
     ADD_PRODUCT(state,data){
@@ -32,6 +38,12 @@ export default new Vuex.Store({
     },
     SET_ONE_CLIENT(state,data){
       state.currentClient=data;
+    },
+    ADD_CATEGORY(state){
+      state.categories;
+    },
+    SET_CATEGORY(state){
+      state.categories
     }
   },
   actions: {
@@ -78,6 +90,22 @@ export default new Vuex.Store({
         commit("SET_ONE_CLIENT",client);
       });
 
+    },
+    addCategory({commit},category){
+      db.collection("categories").add({category:category,date:Date.now()});
+      commit("ADD_CATEGORY");
+    },
+    getCategory({commit}){
+      db.collection("categories").onSnapshot(snap=>{
+        let categ=[]
+        snap.docs.forEach(doc=>{
+          let cat=doc.data();
+          cat.id=doc.id;
+          categ.unshift(cat);
+        });
+        commit("SET_CATEGORY",categ)
+
+      })
     }
 
   },

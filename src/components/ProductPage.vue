@@ -2,81 +2,8 @@
   <v-container fluid>
     <v-card height="3vh" flat></v-card>
     <v-row>
-      <v-col md="4" class="px-4 py-8">
-        <input
-          type="file"
-          ref="input1"
-          style="display: none"
-          @change="previewImage"
-          accept="image/*"
-        />
-        <img
-          v-if="imageData == null"
-          @click="click1"
-          class="preview"
-          height="180"
-          width="200"
-          src="../assets/addImage.webp"
-        />
-        <img
-          v-if="imageData != null"
-          @click="click1"
-          class="preview"
-          height="180"
-          width="200"
-          :src="img1"
-        />
-
-        <v-text-field
-          v-model="product.name"
-          dense
-          outlined
-          label="Nom project"
-        ></v-text-field>
-        <v-row dense>
-          <v-col>
-            <v-text-field
-              v-model="product.price"
-              dense
-              outlined
-              label="prix "
-              type="number"
-            ></v-text-field>
-          </v-col>
-          <v-col>
-            <v-text-field
-              v-model="product.oldPrice"
-              dense
-              outlined
-              label="prix promotion"
-              type="number"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-text-field
-          v-model="product.detail"
-          dense
-          outlined
-          label="detail"
-        ></v-text-field>
-        <v-row dense>
-          <v-col>
-            <v-btn outlined color="orange" class="px-12" @click="annuler()"
-              >Annuler</v-btn
-            >
-          </v-col>
-          <v-col>
-            <v-btn
-              dense
-              color="teal"
-              class="px-12 white--text"
-              @click="addProd()"
-              >Enregistre</v-btn
-            >
-          </v-col>
-        </v-row>
-      </v-col>
-      <v-col md="8">
+      
+      <v-col md="12">
         <v-row>
           <v-col md="4" v-for="(n, i) in listProd" :key="i">
             <ProductTile :product="n" />
