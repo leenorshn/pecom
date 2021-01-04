@@ -39,11 +39,11 @@ export default new Vuex.Store({
     SET_ONE_CLIENT(state,data){
       state.currentClient=data;
     },
-    ADD_CATEGORY(state){
-      state.categories;
+    ADD_CATEGORY(state,data){
+      state.categories.unshift(data);
     },
-    SET_CATEGORY(state){
-      state.categories
+    SET_CATEGORY(state,data){
+      state.categories=data;
     }
   },
   actions: {
@@ -97,13 +97,14 @@ export default new Vuex.Store({
       commit("ADD_CATEGORY");
     },
     getCategory({commit}){
-      db.collection("categories").orderBy("date","desc").onSnapshot(snap=>{
+      db.collection("categories").orderBy("date","asc").onSnapshot(snap=>{
         let categ=[]
         snap.docs.forEach(doc=>{
           let cat=doc.data();
           cat.id=doc.id;
           categ.unshift(cat);
         });
+
         commit("SET_CATEGORY",categ)
 
       })

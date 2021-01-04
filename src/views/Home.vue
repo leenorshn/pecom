@@ -52,19 +52,20 @@
               v-model="product.category"
               dense
               outlined
-              :items="getCategories.category"
-              label="prix "
+              :items="catego"
+              label="categorie "
               type="number"
             ></v-select>
           </v-col>
           <v-col md="2" class="mr-4 d-flex justify-center align-center">
-            <NewCategory :dialog="dialog"/>
+            <NewCategory/>
           </v-col>
         </v-row>
         <v-row dense>
           <v-col>
             <v-text-field
-              v-model="product.price"
+            v-model="product.oldPrice"
+              
               dense
               outlined
               label="prix "
@@ -73,7 +74,7 @@
           </v-col>
           <v-col>
             <v-text-field
-              v-model="product.oldPrice"
+              v-model="product.price"
               dense
               outlined
               label="prix promotion"
@@ -114,7 +115,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import {  mapGetters, mapState } from "vuex";
 import ProductPage from "./../components/ProductPage";
 import NewCategory from "./NewCategory";
 import firebase from "firebase/app";
@@ -137,14 +138,26 @@ export default {
         price: "",
         oldPrice: "",
         detail: "",
+        category:""
       },
     }
   },
+  updated(){
+    console.log("0000000000");
+  },
   computed:{
-    ...mapState(['products','clients',]),
+    ...mapState(['products','clients','categories']),
     ...mapGetters(['getCategories']),
+    catego(){
+      var cat=[];
+      this.getCategories.forEach(element => {
+        cat.push(element.category);
+      });
+      return cat;
+    }
   },
   methods:{
+    
         click1() {
       this.$refs.input1.click();
     },
