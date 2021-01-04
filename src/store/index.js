@@ -14,7 +14,7 @@ export default new Vuex.Store({
     categories:[]
   },
   getters:{
-    getCategorie(state){
+    getCategories(state){
       return state.categories;
     }
   },

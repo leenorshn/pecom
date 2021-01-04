@@ -8,7 +8,8 @@
       <template v-slot:activator="{ on, attrs }">
         <v-btn
              v-bind="attrs"
-            v-on="on" 
+            v-on="on"
+            class="ml-6 mb-6" 
             ><v-icon>add</v-icon> ajouter</v-btn>
       </template>
       <v-card>
@@ -47,7 +48,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="dialog = false"
+            @click="addCat()"
           >
             Save
           </v-btn>
@@ -71,6 +72,10 @@ export default {
         ...mapActions(['addCategory']),
         addCat(){
             this.addCategory(this.category);
+            this.dialog=false;
+        },
+        close(){
+          this.dialog=false;
         }
     }
 }
