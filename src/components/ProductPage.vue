@@ -16,8 +16,7 @@
 <script>
 import ProductTile from "./ProductTile";
 
-import firebase from "firebase/app";
-import "firebase/firebase-storage";
+
 import { mapActions } from "vuex";
 
 export default {
@@ -42,55 +41,7 @@ export default {
   },
   methods: {
     ...mapActions(["addProduct"]),
-    click1() {
-      this.$refs.input1.click();
-    },
 
-    previewImage(event) {
-      this.uploadValue = 0;
-      this.img1 = null;
-      this.imageData = event.target.files[0];
-      this.onUpload();
-    },
-
-    onUpload() {
-      this.img1 = null;
-      const storageRef = firebase
-        .storage()
-        .ref(`${this.imageData.name}`)
-        .put(this.imageData);
-      storageRef.on(
-        `state_changed`,
-        (snapshot) => {
-          this.uploadValue =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        },
-        (error) => {
-          console.log(error.message);
-        },
-        () => {
-          this.uploadValue = 100;
-          storageRef.snapshot.ref.getDownloadURL().then((url) => {
-            this.img1 = url;
-            // console.log(this.img1)
-          });
-        }
-      );
-    },
-
-    addProd() {
-      this.addProduct({ ...this.product, image: this.img1, date: Date.now() });
-      setTimeout(
-          3000,()=>{
-this.product = null;
-          }
-      )
-      
-    },
-    annuler() {
-      this.product = null;
-      this.imageData = null;
-    },
   },
 };
 </script>

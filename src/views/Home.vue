@@ -117,6 +117,8 @@
 import { mapGetters, mapState } from "vuex";
 import ProductPage from "./../components/ProductPage";
 import NewCategory from "./NewCategory";
+import firebase from "firebase/app";
+import "firebase/firebase-storage";
 
 export default {
   name: 'Home',
@@ -127,6 +129,9 @@ export default {
   data(){
     return {
       dialog:false,
+      caption: "",
+      img1: "",
+      imageData: null,
       product: {
         name: "",
         price: "",
@@ -139,5 +144,56 @@ export default {
     ...mapState(['products','clients',]),
     ...mapGetters(['getCategories']),
   },
+  methods:{
+        click1() {
+      this.$refs.input1.click();
+    },
+
+    previewImage(event) {
+      this.uploadValue = 0;
+      this.img1 = null;
+      this.imageData = event.target.files[0];
+      this.onUpload();
+    },
+
+    onUpload() {
+      this.img1 = null;
+      const storageRef = firebase
+        .storage()
+        .ref(`${this.imageData.name}`)
+        .put(this.imageData);
+      storageRef.on(
+        `state_changed`,
+        (snapshot) => {
+          this.uploadValue =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        },
+        (error) => {
+          console.log(error.message);
+        },
+        () => {
+          this.uploadValue = 100;
+          storageRef.snapshot.ref.getDownloadURL().then((url) => {
+            this.img1 = url;
+            // console.log(this.img1)
+          });
+        }
+      );
+    },
+
+    addProd() {
+      this.addProduct({ ...this.product, image: this.img1, date: Date.now() });
+      setTimeout(
+          3000,()=>{
+this.product = null;
+          }
+      )
+      
+    },
+    annuler() {
+      this.product = null;
+      this.imageData = null;
+    },
+  }
 }
 </script>
