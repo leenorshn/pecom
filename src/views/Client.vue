@@ -1,6 +1,5 @@
 <template>
-<v-container fluid>
-  <h3>Mal</h3>
+<v-container fluid class="grey lighten-5">
 <ClientPage/>
 </v-container>
   

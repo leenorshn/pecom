@@ -10,9 +10,9 @@
     <v-navigation-drawer
       app
       permante
-      color="grey lighten-4"
+      color="white"
       >
-      <v-card height="15vh" class="mb-16 grey lighten-4" flat>
+      <v-card height="15vh" class="mb-16 " flat>
 
       </v-card>
       <v-card
@@ -20,7 +20,7 @@
         class="white--text px-12 ma-2 d-flex  align-center" 
         v-for="(m,i) in menu" :key="i" 
         router :to="m.route"
-        :class="getCurrentPage===m.route?'black':'white'"
+        :class="getCurrentPage===m.route?'black':' grey lighten-4'"
         >
         <v-row>
           <v-col>
@@ -70,7 +70,7 @@ export default {
      icon:"timeline"
    },
    {
-     route:"/Client",
+     route:"/clients",
      label:"Client",
      icon:"people"
    }
