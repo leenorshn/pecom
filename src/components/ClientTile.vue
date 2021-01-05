@@ -10,7 +10,7 @@
             </v-col>
             <v-col md="8">
                 <h3>{{client.name}}</h3>
-                <h4>{{client.phone}}}</h4>
+                <h4>{{client.phone}}</h4>
             </v-col>
             
         </v-row>

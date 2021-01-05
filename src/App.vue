@@ -4,6 +4,7 @@
     app
     flat
     color="black">
+    <v-subheader class="white--text">{{currentTitleO}}</v-subheader>
       <v-spacer></v-spacer>
      
     </v-app-bar>
@@ -12,8 +13,8 @@
       permante
       color="white"
       >
-      <v-card height="15vh" class="mb-16 " flat>
-
+      <v-card height="24vh" class="mb-16 " flat>
+        <v-img src="./assets/imglogo.jpeg"></v-img>
       </v-card>
       <v-card
         height="10vh"
@@ -61,9 +62,16 @@ export default {
   computed:{
     getCurrentPage(){
     return  this.$route.path;
+    },
+    currentTitleO(){
+     var currentRoute= this.menu.find(el=>{
+        return el.route===this.$route.path;
+      })
+      return currentRoute.label;
     }
   },
   data: () => ({
+    currentTitle:"",
    menu:[{
      route:"/",
      label:"Admin",

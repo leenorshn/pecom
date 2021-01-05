@@ -9,17 +9,18 @@
                     <v-text-field label="Rechercher" append-icon="search"></v-text-field>
                 </v-col>
                 <v-col md="3" class="d-flex align-end justify-center">
-                <h3 class="teal--text">100 <span class="grey--text darken-2">clients</span></h3>
+                <h3 class="teal--text">{{nombreClients}} <span class="grey--text darken-2">clients</span></h3>
                 </v-col>
             </v-row>
         </v-card>
-        <v-row class="pt-6" v-if="clients.length==0">
+        <v-row class="pt-6" v-if="clients.length!==0">
             <v-col md="3" v-for="(n,i) in clients" :key="i">
                 <ClientTile :client="n"/>
             </v-col>
             
         </v-row>
-        <v-card v-else class="d-flex align-center justify-center">
+        <v-card v-else class="d-flex align-center justify-center" height="50vh">
+
             <h2 class="title teal--text">Aucun client disponible</h2>
         </v-card>
     </v-container>
@@ -32,7 +33,10 @@ export default {
         ClientTile
     },
     computed:{
-        ...mapState(['clients'])
+        ...mapState(['clients']),
+        nombreClients(){
+            return this.clients.length;
+        }
     }
 }
 </script>
