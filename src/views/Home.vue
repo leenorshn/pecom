@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import {  mapGetters, mapState } from "vuex";
+import {  mapActions, mapState } from "vuex";
 import ProductPage from "./../components/ProductPage";
 import NewCategory from "./NewCategory";
 import firebase from "firebase/app";
@@ -142,22 +142,20 @@ export default {
       },
     }
   },
-  updated(){
-    console.log("0000000000");
-  },
+  
   computed:{
     ...mapState(['products','clients','categories']),
-    ...mapGetters(['getCategories']),
+    
     catego(){
       var cat=[];
-      this.getCategories.forEach(element => {
+      this.categories.forEach(element => {
         cat.push(element.category);
       });
       return cat;
     }
   },
   methods:{
-    
+    ...mapActions(['getCategory','addProduct']),
         click1() {
       this.$refs.input1.click();
     },
